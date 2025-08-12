@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 
 import com.deliverytech.delivery_api.dto.RestaurantDto;
 import com.deliverytech.delivery_api.entity.Restaurant;
-import com.deliverytech.delivery_api.repository.IRestaurantRespository;
+import com.deliverytech.delivery_api.repository.IRestaurantRepository;
 
 @Service
 public class RestaurantService {
     @Autowired
-    private IRestaurantRespository repository;
+    private IRestaurantRepository repository;
 
-    public RestaurantService(IRestaurantRespository repository) {
+    public RestaurantService(IRestaurantRepository repository) {
         this.repository = repository;
     }
 

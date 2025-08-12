@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.deliverytech.delivery_api.entity.Restaurant;
 
-public interface IRestaurantRespository extends JpaRepository<Restaurant, Long> {
+public interface IRestaurantRepository extends JpaRepository<Restaurant, Long> {
 
 }
