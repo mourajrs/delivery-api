@@ -2,7 +2,6 @@ package com.deliverytech.delivery_api.entity;
 
 import java.util.List;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,20 +12,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Data
+@Table(name = "client")
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "restaurant")
-public class Restaurant {
+public class Client {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @Column(name = "name", nullable = false)
-    private String name;    
-    private String description;    
-
-    @OneToMany(mappedBy = "restaurant")
-    private List<Product> product;
+    private Long id;
+    private String name;
+    private String email;
+    private String fone;
+    private String address;
+    private boolean active; 
+    
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders;
 }
