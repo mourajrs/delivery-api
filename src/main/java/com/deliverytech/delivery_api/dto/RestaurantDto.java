@@ -6,11 +6,7 @@ import lombok.Data;
 public class RestaurantDto {
     private Long id;
     private String name;
-    private String description;   
-    
-    public RestaurantDto() {
-        super();
-    }
+    private String description;     
 
     @Override
     public String toString() {
@@ -19,10 +15,5 @@ public class RestaurantDto {
                ", description='" + description + '\'' +
                '}';
     }
-
-    public RestaurantDto(Long id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;       
-    }            
+               
 }

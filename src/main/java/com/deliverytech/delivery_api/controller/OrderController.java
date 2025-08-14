@@ -1,28 +1,27 @@
 package com.deliverytech.delivery_api.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deliverytech.delivery_api.service.RestaurantService;
-import com.deliverytech.delivery_api.dto.RestaurantDto;
+import com.deliverytech.delivery_api.dto.OrderDto;
+import com.deliverytech.delivery_api.service.OrderService;
 
 @CrossOrigin(origins = "*")
  
 @RestController
-@RequestMapping("/api/av1/restaurants")
-public class RestaurantController {
-
+@RequestMapping("api/v1/order")
+public class OrderController {
     @Autowired
-    private RestaurantService restaurantService;
+    private OrderService orderService;
 
     @RequestMapping("/findAll")
     @GetMapping
-    public List<RestaurantDto> getAllRestaurants() {
-        // return restaurantService.findAll();
-        return null;
-    }   
+    public List<OrderDto> getAllOrders() {
+        return orderService.findAll();
+    }
 }

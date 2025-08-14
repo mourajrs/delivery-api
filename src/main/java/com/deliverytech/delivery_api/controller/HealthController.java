@@ -1,5 +1,6 @@
 package com.deliverytech.delivery_api.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +13,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+@CrossOrigin(origins = "*")
+ 
 @RestController
 @Tag(name = "Health Check", description = "Verifica o status da API e exibe informações do sistema")
 public class HealthController {

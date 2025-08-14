@@ -24,7 +24,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name", nullable = false)
+    // @Column(name = "name", nullable = false)
     private String name;
 
     private BigDecimal price;
