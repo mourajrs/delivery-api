@@ -18,9 +18,8 @@ import com.deliverytech.delivery_api.service.OrderService;
 public class OrderController {
     @Autowired
     private OrderService orderService;
-
-    @RequestMapping("/findAll")
-    @GetMapping
+    
+    @GetMapping("/findAll")
     public List<OrderDto> getAllOrders() {
         return orderService.findAll();
     }

@@ -17,9 +17,8 @@ import com.deliverytech.delivery_api.service.ClientService;
 public class ClientController {
     @Autowired
     private ClientService clientService;
-
-    @RequestMapping("/findAll")
-    @GetMapping
+    
+    @GetMapping("/findAll")
     public List<ClientDto> getAllClients() {
         return clientService.findAll();
     }    

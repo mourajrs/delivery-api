@@ -18,9 +18,8 @@ public class RestaurantController {
 
     @Autowired
     private RestaurantService restaurantService;
-
-    @RequestMapping("/findAll")
-    @GetMapping
+        
+    @GetMapping("/findAll")
     public List<RestaurantDto> getAllRestaurants() {
         // return restaurantService.findAll();
         return null;

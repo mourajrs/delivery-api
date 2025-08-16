@@ -16,9 +16,9 @@ public interface ProductService {
 
     public ProductDto findProductById(Long id);
 
-    public ProductDto findProductByCategory(String category);
+    public List<ProductDto> findProductByCategory(String category);
 
     public List<ProductDto> findProductByRestaurant(String name);
 
-    public List<ProductDto> findAll();
+    public List<ProductDto> findAll();    
 }

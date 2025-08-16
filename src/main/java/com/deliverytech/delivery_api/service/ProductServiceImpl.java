@@ -60,9 +60,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto findProductByCategory(String category) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findProductByCategory'");
+    public List<ProductDto> findProductByCategory(String category) {        
+        ModelMapper modelMapper = new ModelMapper();        
+        return repository.findByCategory(category).stream().map(product -> modelMapper.map(product, ProductDto.class)).collect(Collectors.toList());
     }
 
     @Override
