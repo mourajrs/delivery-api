@@ -69,4 +69,10 @@ public class RestaurantServiceImpl  implements RestaurantService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findProductByRestaurant'");
     } 
+
+    @Override
+    public List<RestaurantDto> findByRated(String rated) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findByRated'");
+    }
 }

@@ -17,4 +17,6 @@ public interface RestaurantService {
     public RestaurantDto findProductByCategory(String category);
 
     public List<RestaurantDto> findProductByRestaurant(String name);
+
+    public List<RestaurantDto> findByRated(String rated);
 }

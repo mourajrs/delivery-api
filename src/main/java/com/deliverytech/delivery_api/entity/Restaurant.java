@@ -25,7 +25,8 @@ public class Restaurant {
 
     @Column(name = "name", nullable = false)
     private String name;    
-    private String description;    
+    private String description;   
+    private String rated;
 
     @OneToMany(mappedBy = "restaurant")
     private List<Product> product;
