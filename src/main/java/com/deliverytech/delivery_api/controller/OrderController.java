@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.deliverytech.delivery_api.dto.OrderDto;
-import com.deliverytech.delivery_api.service.OrderService;
+import com.deliverytech.delivery_api.service.OrderServiceImpl;
 
 @CrossOrigin(origins = "*")
  
@@ -17,10 +17,11 @@ import com.deliverytech.delivery_api.service.OrderService;
 @RequestMapping("api/v1/order")
 public class OrderController {
     @Autowired
-    private OrderService orderService;
+    private OrderServiceImpl orderService;
     
     @GetMapping("/findAll")
     public List<OrderDto> getAllOrders() {
-        return orderService.findAll();
+        // return orderService.findAll();
+        return null;
     }
 }

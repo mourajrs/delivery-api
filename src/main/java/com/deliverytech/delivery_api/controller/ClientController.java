@@ -11,11 +11,8 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.deliverytech.delivery_api.dto.ClientDto;
-import com.deliverytech.delivery_api.dto.ProductDto;
 import com.deliverytech.delivery_api.service.ClientService;
 
 import jakarta.validation.Valid;
@@ -23,6 +20,7 @@ import jakarta.validation.Valid;
 @CrossOrigin(origins = "*")
 
 @RestController
+@RequestMapping("/api/v1/client")
 public class ClientController {
     @Autowired
     private ClientService clientService;
@@ -41,6 +39,12 @@ public class ClientController {
     @PatchMapping("/{id}/client")
     public ResponseEntity<ClientDto> updateClient(Long id, @RequestBody ClientDto dto) {
         ClientDto clientDto = clientService.updateClient(dto, id);
+        return ResponseEntity.ok(clientDto);
+    }
+
+    @GetMapping("/findByEmail")
+    public ResponseEntity<ClientDto> findByEmail(String email){
+        ClientDto clientDto = clientService.findByEmail(email);
         return ResponseEntity.ok(clientDto);
     }
 }

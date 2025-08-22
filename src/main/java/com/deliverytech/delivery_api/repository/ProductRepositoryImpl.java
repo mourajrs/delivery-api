@@ -2,7 +2,6 @@ package com.deliverytech.delivery_api.repository;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Locale.Category;
 
 import org.springframework.stereotype.Repository;
 
@@ -18,16 +17,12 @@ public class ProductRepositoryImpl implements IProductRepositoryCustom {
     private EntityManager entityManager;
 
     @Override
-    public List<Product> findByRestaurantId(Long restauranteId) {
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'findByRestaurantId'");
+    public List<Product> findByRestaurantId(Long restauranteId) {        
         return null;
     }
 
     @Override
-    public List<Product> findByDisponibilityIsTrue() {
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'findByAvailableIsTrue'");
+    public List<Product> findByDisponibilityIsTrue() {        
         return null;
     }
 
@@ -39,9 +34,7 @@ public class ProductRepositoryImpl implements IProductRepositoryCustom {
     }
 
     @Override    
-    public List<Product> findByPriceLessThanEqual(BigDecimal price) {
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'findByPriceLessThanEqual'");
+    public List<Product> findByPriceLessThanEqual(BigDecimal price) {        
         return null;
     }   
 

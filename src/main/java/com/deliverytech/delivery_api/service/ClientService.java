@@ -13,4 +13,6 @@ public interface ClientService {
     public ClientDto findClientById(Long id);
 
     public List<ClientDto> findAll();
+
+    public ClientDto findByEmail(String email);
 }
