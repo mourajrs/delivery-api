@@ -31,4 +31,12 @@ public class ClientRepositoryImpl implements ClientRepositoryCustom {
         return null;
     }
 
+    @Override
+    public Boolean existsByEmail(String email) {
+        String sql = "select count(c) from Client c where c.email = :email";
+        TypedQuery<Long> query = entityManager.createQuery(sql, Long.class);
+        query.setParameter("email", email);
+        return query.getSingleResult() > 0;
+    }
+
 }

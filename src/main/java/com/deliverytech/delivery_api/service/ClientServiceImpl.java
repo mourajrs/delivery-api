@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.deliverytech.delivery_api.dto.ClientDto;
 import com.deliverytech.delivery_api.entity.Client;
+import com.deliverytech.delivery_api.exceptions.ConflictException;
 import com.deliverytech.delivery_api.repository.ClientRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -29,14 +30,25 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Long createClient(ClientDto clientDto) {
-        ModelMapper modelMapper = new ModelMapper();        
+
+        boolean nameExists = repository.existsByEmail(clientDto.getEmail()); 
+        
+        if (nameExists) {
+            throw new ConflictException(
+                    "Já existe um cliente com este email",
+                    "email",
+                    clientDto.getEmail());
+        }
+
+        ModelMapper modelMapper = new ModelMapper();
         Client client = modelMapper.map(clientDto, Client.class);
-        return repository.save(client).getId();  
+        return repository.save(client).getId();
     }
 
     @Override
     public ClientDto updateClient(ClientDto clientDto, Long id) {
-        Client client = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Client não encontrado com ID: " + id));                
+        Client client = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Client não encontrado com ID: " + id));
         client.setId(id);
         client.setName(clientDto.getName());
         client.setEmail(clientDto.getEmail());
@@ -49,7 +61,8 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientDto findClientById(Long id) {
-        Client client = repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com ID: " + id));
+        Client client = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com ID: " + id));
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(client, ClientDto.class);
     }
@@ -57,12 +70,14 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<ClientDto> findAll() {
         ModelMapper modelMapper = new ModelMapper();
-        return repository.findAll().stream().map(client -> modelMapper.map(client, ClientDto.class)).collect(Collectors.toList());
+        return repository.findAll().stream().map(client -> modelMapper.map(client, ClientDto.class))
+                .collect(Collectors.toList());
     }
 
     @Override
     public ClientDto findByEmail(String email) {
-        Client client = repository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com email: " + email));
+        Client client = repository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com email: " + email));
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(client, ClientDto.class);
     }

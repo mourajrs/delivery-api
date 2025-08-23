@@ -34,6 +34,8 @@ public class Order {
     private BigDecimal subtotal; 
     private BigDecimal deliveryFee; 
     private BigDecimal totalAmount; 
+    private String observation;
+    private int quantity;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")

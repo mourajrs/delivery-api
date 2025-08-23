@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.deliverytech.delivery_api.dto.ClientDto;
 import com.deliverytech.delivery_api.service.ClientService;
 
+// import io.swagger.v3.oas.annotations.responses.ApiResponse;
+// import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "*")
@@ -31,6 +33,11 @@ public class ClientController {
     }
 
     @PostMapping("/create")
+    // @ApiResponses(value = {
+    //         @ApiResponse(responseCode = "201", description = "Cliente criado com sucesso"),
+    //         @ApiResponse(responseCode = "400", description = "Dados inválidos"),
+    //         @ApiResponse(responseCode = "409", description = "Cliente já existe")
+    // })
     public ResponseEntity<Long> createClient(@Valid @RequestBody ClientDto dto) {
         Long id = clientService.createClient(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(id);
@@ -43,7 +50,7 @@ public class ClientController {
     }
 
     @GetMapping("/findByEmail")
-    public ResponseEntity<ClientDto> findByEmail(String email){
+    public ResponseEntity<ClientDto> findByEmail(String email) {
         ClientDto clientDto = clientService.findByEmail(email);
         return ResponseEntity.ok(clientDto);
     }

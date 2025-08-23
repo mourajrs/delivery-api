@@ -7,4 +7,5 @@ import com.deliverytech.delivery_api.entity.Client;
 public interface ClientRepositoryCustom {
     Optional<Client> findByEmail(String email);       
     Boolean activeClient(Long id);
+    Boolean existsByEmail(String name);
 }
