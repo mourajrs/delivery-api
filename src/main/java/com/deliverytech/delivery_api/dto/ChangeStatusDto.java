@@ -5,15 +5,10 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class ClientDto {
-    private Long id;   
-    private String name;
-
+public class ChangeStatusDto {
     @NotBlank(message = "Email é obrigatório")
     @Email(message = "E-mail inválido")
     private String email;
-    
-    private String fone;
-    private String address;
-    private boolean active;    
+
+    private boolean newStatus;
 }

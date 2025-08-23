@@ -7,12 +7,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.deliverytech.delivery_api.dto.ChangeStatusDto;
 import com.deliverytech.delivery_api.dto.ClientDto;
 import com.deliverytech.delivery_api.entity.Client;
 import com.deliverytech.delivery_api.exceptions.ConflictException;
 import com.deliverytech.delivery_api.repository.ClientRepository;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 
 @Service
 public class ClientServiceImpl implements ClientService {
@@ -31,8 +33,8 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Long createClient(ClientDto clientDto) {
 
-        boolean nameExists = repository.existsByEmail(clientDto.getEmail()); 
-        
+        boolean nameExists = repository.existsByEmail(clientDto.getEmail());
+
         if (nameExists) {
             throw new ConflictException(
                     "Já existe um cliente com este email",
@@ -80,6 +82,16 @@ public class ClientServiceImpl implements ClientService {
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com email: " + email));
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(client, ClientDto.class);
+    }
+
+    @Override
+    @Transactional
+    public void changeStatus(ChangeStatusDto dto) {
+        boolean updated = repository.changeStatus(dto.getEmail(), dto.isNewStatus());
+
+        if (!updated) {
+            throw new EntityNotFoundException("Cliente nao encontrado com email: " + dto.getEmail());
+        }
     }
 
 }

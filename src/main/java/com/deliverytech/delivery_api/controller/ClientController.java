@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.deliverytech.delivery_api.dto.ChangeStatusDto;
 import com.deliverytech.delivery_api.dto.ClientDto;
 import com.deliverytech.delivery_api.service.ClientService;
 
@@ -53,5 +55,12 @@ public class ClientController {
     public ResponseEntity<ClientDto> findByEmail(String email) {
         ClientDto clientDto = clientService.findByEmail(email);
         return ResponseEntity.ok(clientDto);
+    }
+
+
+    @PatchMapping("/changeStatus")
+    public ResponseEntity<String> changeStatus(@Valid @RequestBody ChangeStatusDto dto) {
+        clientService.changeStatus(dto);
+        return ResponseEntity.ok("Status alterado com sucesso");
     }
 }
