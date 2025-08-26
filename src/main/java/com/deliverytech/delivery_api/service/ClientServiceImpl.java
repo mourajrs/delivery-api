@@ -33,9 +33,9 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Long createClient(ClientDto clientDto) {
 
-        boolean nameExists = repository.existsByEmail(clientDto.getEmail());
+        boolean emailExists = repository.existsByEmail(clientDto.getEmail());
 
-        if (nameExists) {
+        if (emailExists) {
             throw new ConflictException(
                     "Já existe um cliente com este email",
                     "email",
