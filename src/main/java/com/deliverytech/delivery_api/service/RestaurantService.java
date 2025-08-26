@@ -6,17 +6,9 @@ import com.deliverytech.delivery_api.dto.RestaurantDto;
 
 @Service
 public interface RestaurantService {
-    public RestaurantDto createProduct(RestaurantDto restaurantDto);
-
-    public RestaurantDto updateProduct(RestaurantDto restaurantDto, Long id);
-
-    public void changeStatusProduct(Long id);
-
-    public RestaurantDto findProductById(Long id);
-
-    public RestaurantDto findProductByCategory(String category);
-
-    public List<RestaurantDto> findProductByRestaurant(String name);
+    public Long create(RestaurantDto restaurantDto);       
 
     public List<RestaurantDto> findByRated(String rated);
+
+    public RestaurantDto findByRestaurant(String restaurant);
 }

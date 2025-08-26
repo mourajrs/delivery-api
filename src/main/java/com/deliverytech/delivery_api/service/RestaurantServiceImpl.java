@@ -1,78 +1,44 @@
 package com.deliverytech.delivery_api.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.deliverytech.delivery_api.dto.RestaurantDto;
 import com.deliverytech.delivery_api.entity.Restaurant;
-import com.deliverytech.delivery_api.repository.IRestaurantRepository;
+import com.deliverytech.delivery_api.repository.RestaurantRepository;
 
 @Service
 public class RestaurantServiceImpl  implements RestaurantService {
     @Autowired
-    private IRestaurantRepository repository;
+    private RestaurantRepository repository;
 
-    public RestaurantServiceImpl(IRestaurantRepository repository) {
+    public RestaurantServiceImpl(RestaurantRepository repository) {
         this.repository = repository;
     }
 
     public RestaurantServiceImpl() {
         super();
     }
-    
-    public List<RestaurantDto> findAll() {
-        return repository.findAll().stream().map(this::ConvertEntityToDto).collect(Collectors.toList());
-    }
-    
-    private RestaurantDto ConvertEntityToDto(Restaurant entity) {
-        RestaurantDto dto = new RestaurantDto();
-        dto.setName(entity.getName());
-        dto.setDescription((entity.getDescription()));
-        return dto;
-    }
 
     @Override
-    public RestaurantDto createProduct(RestaurantDto restaurantDto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createProduct'");
-    }
+    public Long create(RestaurantDto restaurantDto) {
+        ModelMapper modelMapper = new ModelMapper();
+        Restaurant restaurant = modelMapper.map(restaurantDto, Restaurant.class);
+        return repository.save(restaurant).getId();        
+    }    
 
     @Override
-    public RestaurantDto updateProduct(RestaurantDto restaurantDto, Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateProduct'");
-    }
-
-    @Override
-    public void changeStatusProduct(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'changeStatusProduct'");
-    }
-
-    @Override
-    public RestaurantDto findProductById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findProductById'");
-    }
-
-    @Override
-    public RestaurantDto findProductByCategory(String category) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findProductByCategory'");
-    }
-
-    @Override
-    public List<RestaurantDto> findProductByRestaurant(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findProductByRestaurant'");
+    public RestaurantDto findByRestaurant(String restaurant) {
+        ModelMapper modelMapper = new ModelMapper();      
+        return repository.findByName(restaurant).map(restaurant1 -> modelMapper.map(restaurant1, RestaurantDto.class)).orElse(null);
     } 
-
+    
     @Override
-    public List<RestaurantDto> findByRated(String rated) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByRated'");
+    public List<RestaurantDto> findByRated(String rated) {        
+        return null;
     }
+
 }
