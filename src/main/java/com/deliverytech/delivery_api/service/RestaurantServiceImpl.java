@@ -1,6 +1,7 @@
 package com.deliverytech.delivery_api.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,18 @@ public class RestaurantServiceImpl  implements RestaurantService {
     @Override
     public List<RestaurantDto> findByRated(String rated) {        
         return null;
+    }
+
+    @Override
+    public RestaurantDto findById(Long id) {
+        ModelMapper modelMapper = new ModelMapper();
+        return repository.findById(id).map(restaurant -> modelMapper.map(restaurant, RestaurantDto.class)).orElse(null);     
+    }
+
+    @Override
+    public List<RestaurantDto> findAll() {
+        ModelMapper modelMapper = new ModelMapper();
+        return repository.findAll().stream().map(restaurant -> modelMapper.map(restaurant, RestaurantDto.class)).collect(Collectors.toList());
     }
 
 }
