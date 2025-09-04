@@ -1,10 +1,12 @@
 package com.deliverytech.delivery_api.controller;
 
+import java.security.Security;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -15,17 +17,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.deliverytech.delivery_api.dto.ChangeStatusDto;
 import com.deliverytech.delivery_api.dto.ClientDto;
+import com.deliverytech.delivery_api.infra.security.SecurityConfigurations;
 import com.deliverytech.delivery_api.service.ClientService;
 
-// import io.swagger.v3.oas.annotations.responses.ApiResponse;
-// import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @CrossOrigin(origins = "*")
 
+@PreAuthorize("isAuthenticated()")
 @RestController
 @RequestMapping("/api/v1/client")
-public class ClientController {
+@SecurityRequirement(name = SecurityConfigurations.SECURITY)
+@Tag(name = "Área do Cliente - Protegida")
+public class ClientController {  
     @Autowired
     private ClientService clientService;
 
@@ -34,12 +43,13 @@ public class ClientController {
         return clientService.findAll();
     }
 
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('USER')")
     @PostMapping("/create")
-    // @ApiResponses(value = {
-    //         @ApiResponse(responseCode = "201", description = "Cliente criado com sucesso"),
-    //         @ApiResponse(responseCode = "400", description = "Dados inválidos"),
-    //         @ApiResponse(responseCode = "409", description = "Cliente já existe")
-    // })
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Cliente criado com sucesso"),
+        @ApiResponse(responseCode = "400", description = "Dados inválidos"),
+        @ApiResponse(responseCode = "409", description = "Cliente já existe")
+    })
     public ResponseEntity<Long> createClient(@Valid @RequestBody ClientDto dto) {
         Long id = clientService.createClient(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(id);

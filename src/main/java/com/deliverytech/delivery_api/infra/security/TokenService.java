@@ -36,9 +36,10 @@ public class TokenService {
     public String generateToken(Users user) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
-            String token = JWT.create()                    
+            String token = com.auth0.jwt.JWT.create()
                     .withIssuer("auth-api")
                     .withSubject(user.getLogin())
+                    .withClaim("authorities", user.getRole().toString())
                     .withExpiresAt(genExpirationDate())
                     .sign(algorithm);
             return token;

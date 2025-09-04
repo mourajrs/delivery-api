@@ -42,9 +42,13 @@ public class ClientServiceImpl implements ClientService {
                     clientDto.getEmail());
         }
 
-        ModelMapper modelMapper = new ModelMapper();
-        Client client = modelMapper.map(clientDto, Client.class);
-        return repository.save(client).getId();
+        try {
+            ModelMapper modelMapper = new ModelMapper();
+            Client client = modelMapper.map(clientDto, Client.class);
+            return repository.save(client).getId();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
