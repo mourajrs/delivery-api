@@ -50,9 +50,9 @@ public class ClientController {
         @ApiResponse(responseCode = "400", description = "Dados inválidos"),
         @ApiResponse(responseCode = "409", description = "Cliente já existe")
     })
-    public ResponseEntity<Long> createClient(@Valid @RequestBody ClientDto dto) {
-        Long id = clientService.createClient(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(id);
+    public ResponseEntity <ClientDto> createClient(@Valid @RequestBody ClientDto dto) {
+        ClientDto clientDto = clientService.createClient(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(clientDto);
     }
 
     @PatchMapping("/{id}/client")

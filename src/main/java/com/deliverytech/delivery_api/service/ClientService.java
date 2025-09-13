@@ -8,7 +8,7 @@ import com.deliverytech.delivery_api.dto.ClientDto;
 
 @Service
 public interface ClientService {
-    public Long createClient(ClientDto clientDto);
+    public ClientDto createClient(ClientDto clientDto);
 
     public ClientDto updateClient(ClientDto clientDto, Long id);
 

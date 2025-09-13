@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    container_name: delivery-api
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/mnt/d/Curso-Arquitetura-Sistemas/delivery-api:/app"
+    depends_on:
+      - mysql
+    environment:
+      DELIVERY_USER: ${DELIVERY_USER}
+      DELIVERY_PWD: ${DELIVERY_PWD}
+      JWT_SECRET: ${JWT_SECRET}
+
+  mysql:
+    image: mysql:8.1
+    container_name: delivery-database
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root@root
+      MYSQL_DATABASE: delivery
+      MYSQL_USER: delivery
+      MYSQL_PASSWORD: delivery
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root@root
+    depends_on:
+      - mysql
+
+volumes:
+  db_data:

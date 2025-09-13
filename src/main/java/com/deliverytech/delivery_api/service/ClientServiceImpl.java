@@ -31,7 +31,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Long createClient(ClientDto clientDto) {
+    public ClientDto createClient(ClientDto clientDto) {
 
         boolean emailExists = repository.existsByEmail(clientDto.getEmail());
 
@@ -44,8 +44,8 @@ public class ClientServiceImpl implements ClientService {
 
         try {
             ModelMapper modelMapper = new ModelMapper();
-            Client client = modelMapper.map(clientDto, Client.class);
-            return repository.save(client).getId();
+            Client client = modelMapper.map(clientDto, Client.class);            
+            return modelMapper.map(repository.save(client), ClientDto.class);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
